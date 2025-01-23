@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "mx.bax.sdk"
+    namespace = "io.github.bax-exchange"
     compileSdk = 34
 
     defaultConfig {
