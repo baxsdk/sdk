@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.bax-exchange</groupId>
-    <artifactId>SDK-ANDROID</artifactId>
+    <artifactId>BaxSDK</artifactId>
     <version>1.0.2</version>
     <packaging>jar</packaging>
 
