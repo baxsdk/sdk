@@ -7,7 +7,7 @@
     <groupId>io.github.bax-exchange</groupId>
     <artifactId>BaxSDK</artifactId>
     <version>2025.01.24.1</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>BAX SDK Android</name>
     <description>Code for BAX Android SDK</description>
