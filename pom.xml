@@ -6,7 +6,7 @@
 
     <groupId>io.github.bax-exchange</groupId>
     <artifactId>BaxSDK</artifactId>
-    <version>1.0.2</version>
+    <version>2025.01.24</version>
     <packaging>jar</packaging>
 
     <name>BAX SDK Android</name>
