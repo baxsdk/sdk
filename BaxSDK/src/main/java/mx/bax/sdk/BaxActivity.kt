@@ -1,6 +1,9 @@
 package mx.bax.sdk
 
 import android.os.Bundle
+import android.util.Log
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +14,7 @@ class BaxActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val url = intent.getStringExtra("URL") ?: ""
-        val apiKey = intent.getStringExtra("API_KEY")
+        val token = intent.getStringExtra("TOKEN")
 
         setContentView(R.layout.basic_webview)
 
@@ -19,9 +22,20 @@ class BaxActivity : AppCompatActivity() {
         webView.apply {
             webViewClient = WebViewClient()
             settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
 
-            apiKey?.let { key ->
-                val headers = mapOf("Authorization" to key)
+            webChromeClient = object : WebChromeClient() {
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                    Log.d(
+                        "WebViewConsole",
+                        "Line ${consoleMessage.lineNumber()}: ${consoleMessage.message()} (Source: ${consoleMessage.sourceId()})"
+                    )
+                    return super.onConsoleMessage(consoleMessage)
+                }
+            }
+
+            token?.let { key ->
+                val headers = mapOf("Authorization" to "Bearer $key")
                 loadUrl(url, headers)
             }
         }
