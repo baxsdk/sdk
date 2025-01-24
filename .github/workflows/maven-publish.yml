@@ -24,11 +24,11 @@ jobs:
 
       # Grant execution permission to the Gradle wrapper script
       - name: Make Gradle Wrapper Executable
-        run: chmod +x ./gradlew_linux
+        run: chmod +x ./gradlew
 
       # Build the project using the Gradle wrapper
       - name: Build with Gradle
-        run: ./gradlew_linux build
+        run: ./gradlew build
 
       # Publish to Maven Central using Gradle
       - name: Publish to Maven Central
@@ -37,4 +37,4 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          ./gradlew_linux publish
+          ./gradlew publish
