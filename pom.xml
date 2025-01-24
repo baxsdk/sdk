@@ -54,6 +54,10 @@
         </repository>
     </distributionManagement>
 
+    <modules>
+        <module>BaxSDK</module>
+    </modules>
+
     <build>
         <plugins>
             <plugin>
