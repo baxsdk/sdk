@@ -8,6 +8,7 @@
         <groupId>io.github.bax-exchange</groupId>
         <artifactId>baxsdk-parent</artifactId>
         <version>2025.01.24.2</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>BaxSDK</artifactId>
