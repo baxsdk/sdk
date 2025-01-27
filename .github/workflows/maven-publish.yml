@@ -5,7 +5,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: DEV
     steps:
       # Checkout the repository
       - uses: actions/checkout@v3
@@ -37,4 +36,7 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          ./gradlew_linux publish
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            deploy
