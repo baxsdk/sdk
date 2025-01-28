@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.bax-exchange</groupId>
+    <groupId>io.github.baxsdk</groupId>
     <artifactId>BaxSDK</artifactId>
-    <version>2025.01.24.1</version>
+    <version>2025.01.27</version>
     <packaging>pom</packaging>
 
     <name>BAX SDK Android</name>
