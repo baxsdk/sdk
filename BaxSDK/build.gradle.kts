@@ -1,86 +1,43 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
-    id("signing")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "io.github.baxsdk.sdk"
-    compileSdk = 33
-    
+    namespace = "mx.bax.sdk"
+    compileSdk = 34
+
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
-        
+        minSdk = 24
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-    
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "io.github.baxsdk"
-            artifactId = "BaxSDK"
-            version = "2025.01.27"
+dependencies {
 
-            afterEvaluate {
-                from(components["release"])
-            }
-            
-            pom {
-                name.set("BAX SDK Android")
-                description.set("Code for BAX Android SDK")
-                url.set("https://github.com/bax-exchange/sdk-android")
-                
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("http://www.opensource.org/licenses/mit-license.php")
-                    }
-                }
-                
-                developers {
-                    developer {
-                        name.set("Rodrigo Velazquez")
-                        email.set("rvelazquez@bax.mx")
-                        organization.set("Bax Exchange")
-                        organizationUrl.set("http://www.bax.mx")
-                    }
-                }
-                
-                scm {
-                    connection.set("scm:git:git://github.com/bax-exchange/sdk-android.git")
-                    developerConnection.set("scm:git:ssh://github.com/bax-exchange/sdk-android.git")
-                    url.set("https://github.com/bax-exchange/sdk-android/tree/develop")
-                }
-            }
-        }
-    }
-    
-    repositories {
-        maven {
-            name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
-            }
-        }
-    }
-}
-
-signing {
-    val signingKey = System.getenv("GPG_PRIVATE_KEY")
-    val signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["release"])
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
