@@ -64,7 +64,7 @@ afterEvaluate {
                 pom {
                     name.set("BaxSDK")
                     description.set("Bax SDK for Android")
-                    url.set("https://github.com/yourusername/BaxSDK")
+                    url.set("https://github.com/baxsdk/sdk")
                     
                     licenses {
                         license {
@@ -75,16 +75,16 @@ afterEvaluate {
                     
                     developers {
                         developer {
-                            id.set("yourusername")
-                            name.set("Your Name")
-                            email.set("your.email@example.com")
+                            id.set("baxsdk")
+                            name.set("Rodrigo Velazquez")
+                            email.set("rvelazquez@bax.mx")
                         }
                     }
                     
                     scm {
-                        connection.set("scm:git:git://github.com/yourusername/BaxSDK.git")
-                        developerConnection.set("scm:git:ssh://github.com:yourusername/BaxSDK.git")
-                        url.set("https://github.com/yourusername/BaxSDK")
+                        connection.set("scm:git:git://github.com/baxsdk/sdk.git")
+                        developerConnection.set("scm:git:ssh://github.com:baxsdk/sdk.git")
+                        url.set("https://github.com/baxsdk/sdk")
                     }
                 }
             }

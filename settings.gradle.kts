@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BaxSDKforAndroid"
+rootProject.name = "sdk"
 //include(":SampleAppUsingXmlLayouts")
 include(":BaxSDK")
 //include(":SampleAppUsingJetpackCompose")
