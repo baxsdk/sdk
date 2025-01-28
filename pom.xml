@@ -11,7 +11,7 @@
 
     <name>BAX SDK Android</name>
     <description>Code for BAX Android SDK</description>
-    <url>https://github.com/bax-exchange/sdk-android</url>
+    <url>https://github.com/baxsdk/sdk</url>
 
     <licenses>
         <license>
@@ -30,9 +30,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/bax-exchange/sdk-android.git</connection>
-        <developerConnection>scm:git:ssh://github.com/bax-exchange/sdk-android.git</developerConnection>
-        <url>https://github.com/bax-exchange/sdk-android/tree/develop</url>
+        <connection>scm:git:git://github.com/baxsdk/sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com/baxsdk/sdk.git</developerConnection>
+        <url>https://github.com/baxsdk/sdk/tree/develop</url>
     </scm>
 
     <properties>

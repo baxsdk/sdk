@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>BaxSDK-core</artifactId> <!-- Different artifact ID for the module -->
-    <packaging>aar</packaging> <!-- For Android library -->
+    <packaging>pom</packaging> <!-- For Android library -->
 
     <dependencies>
         <!-- Your Android dependencies here -->
