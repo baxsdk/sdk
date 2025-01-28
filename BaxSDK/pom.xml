@@ -1,5 +1,25 @@
-<parent>
-    <groupId>io.github.bax-exchange</groupId>
-    <artifactId>BaxSDK</artifactId>
-    <version>2025.01.24.1</version>
-</parent>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.baxsdk</groupId>
+        <artifactId>BaxSDK</artifactId>
+        <version>2025.01.27</version>
+    </parent>
+
+    <artifactId>BaxSDK-core</artifactId> <!-- Different artifact ID for the module -->
+    <packaging>aar</packaging> <!-- For Android library -->
+
+    <dependencies>
+        <!-- Your Android dependencies here -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Any additional plugins specific to the module -->
+        </plugins>
+    </build>
+</project>
