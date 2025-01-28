@@ -9,34 +9,30 @@ jobs:
       # Checkout the repository
       - uses: actions/checkout@v3
 
-      # Set up Java environment (use Java 17 instead of 11)
+      # Set up Java environment
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
-          server-id: central
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      # Cache Gradle dependencies
+      - name: Setup Gradle Cache
+        uses: gradle/gradle-build-action@v2
 
       # Grant execution permission to the Gradle wrapper script
       - name: Make Gradle Wrapper Executable
         run: chmod +x ./gradlew_linux
 
-      # Build the project using the Gradle wrapper
+      # Build the project
       - name: Build with Gradle
         run: ./gradlew_linux build
 
-      # Publish to Maven Central using Gradle
+      # Publish to Maven Central
       - name: Publish to Maven Central
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          mvn \
-            --no-transfer-progress \
-            --batch-mode \
-            deploy
+          SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          SIGNING_PASSWORD: ${{ secrets.GPG_PASSPHRASE }}
+        run: ./gradlew_linux publish
