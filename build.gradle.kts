@@ -1,4 +1,4 @@
-val sdkTag = "0.0.2"
+val sdkTag = "0.0.1"
 
 plugins {
     id("com.android.library")
