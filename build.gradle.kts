@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation("com.github.alxsags:BaxSDK:0.0.1")
+    implementation 'com.github.baxsdk:sdk:Tag'
 }
 
 publishing {
