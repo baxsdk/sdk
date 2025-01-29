@@ -31,6 +31,7 @@ android {
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx.v190)
+    testImplementation(libs.junit.junit)
 }
 
 publishing {

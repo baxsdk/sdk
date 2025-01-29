@@ -3,6 +3,7 @@ package mx.bax.sdk
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.ActivityOptionsCompat
+import mx.bax.sdk.BaxSDK.R
 
 class BaxSDK(private val context: Context, environment: String) {
     private var environment: String = environment

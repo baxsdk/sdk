@@ -7,6 +7,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import mx.bax.sdk.BaxSDK.R
 
 class BaxActivity : AppCompatActivity() {
 
