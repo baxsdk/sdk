@@ -1,17 +1,33 @@
 plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.jetbrains.kotlin.android) apply false
-    alias(libs.plugins.android.library) apply false
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
     id("maven-publish")
-    id("signing")
 }
 
-// If subprojects exist, apply the publishing configuration to all of them
-subprojects {
-    apply(plugin = "maven-publish")
-    apply(plugin = "signing")
+android {
+    namespace = "com.example.baxsdk"
+    compileSdk = 34
 
-    repositories {
-        mavenCentral()
+    defaultConfig {
+        minSdk = 21
+        targetSdk = 34
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            from(components["release"])
+
+            groupId = "com.github.alxsags"
+            artifactId = "BaxSDK"
+            version = "0.0.1"
+        }
     }
 }
