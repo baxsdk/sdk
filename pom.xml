@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.baxsdk</groupId>
+    <groupId>mx.bax.sdk</groupId>
     <artifactId>BaxSDK</artifactId>
-    <version>2025.01.27</version>
+    <version>2025.01.28.12</version>
     <packaging>pom</packaging>
 
     <name>BAX SDK Android</name>
     <description>Code for BAX Android SDK</description>
-    <url>https://github.com/baxsdk/sdk</url>
+    <url>https://github.com/bax-exchange/sdk-android</url>
 
     <licenses>
         <license>
@@ -30,9 +30,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/baxsdk/sdk.git</connection>
-        <developerConnection>scm:git:ssh://github.com/baxsdk/sdk.git</developerConnection>
-        <url>https://github.com/baxsdk/sdk/tree/develop</url>
+        <connection>scm:git:git://github.com/bax-exchange/sdk-android.git</connection>
+        <developerConnection>scm:git:ssh://github.com/bax-exchange/sdk-android.git</developerConnection>
+        <url>https://github.com/bax-exchange/sdk-android/tree/develop</url>
     </scm>
 
     <properties>

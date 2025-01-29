@@ -11,7 +11,19 @@ val sonatypePassword: String? = System.getenv("SONATYPE_PASSWORD") ?: project.fi
 val signingKey: String? = System.getenv("SIGNING_KEY") ?: project.findProperty("signingKey") as String?
 val signingPassword: String? = System.getenv("SIGNING_PASSWORD") ?: project.findProperty("signingPassword") as String?
 
+println("Sonatype Username: $sonatypeUsername")
+println("Sonatype Password: $sonatypePassword")
+//println("Signing Key: $signingKey")
+//println("Signing Password: $signingPassword")
+
 android {
+    publishing {
+        // Enable publishing for the release variant
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
     namespace = "mx.bax.sdk"
     compileSdk = 34
 
@@ -35,50 +47,39 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
+    
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
+
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-}
-
-ext {
-    set("PUBLISH_GROUP_ID", "io.github.baxsdk")
-    set("PUBLISH_ARTIFACT_ID", "sdk")
-    set("PUBLISH_VERSION", "2025.01.28")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
 
 afterEvaluate {
+    println("Sonatype Username exists: ${!sonatypeUsername.isNullOrEmpty()}")
+    println("Sonatype Password exists: ${!sonatypePassword.isNullOrEmpty()}")
+    
     publishing {
         publications {
             create<MavenPublication>("release") {
-                groupId = project.ext.get("PUBLISH_GROUP_ID").toString()
-                artifactId = project.ext.get("PUBLISH_ARTIFACT_ID").toString()
-                version = project.ext.get("PUBLISH_VERSION").toString()
-
                 from(components["release"])
+                groupId = "mx.bax.sdk"
+                artifactId = "BaxSDK-core"
+                version = "2025.01.29.1"
 
                 pom {
-                    name.set("Bax SDK")
+                    name.set("BaxSDK")
                     description.set("Bax SDK for Android")
-                    url.set("https://github.com/baxsdk/sdk")
+                    url.set("https://github.com/bax-exchange/sdk-android")
+                    packaging = "aar"
                     
                     licenses {
                         license {
@@ -90,26 +91,27 @@ afterEvaluate {
                     developers {
                         developer {
                             id.set("baxsdk")
-                            name.set("Bax SDK Team")
+                            name.set("Rodrigo Velazquez")
                             email.set("rvelazquez@bax.mx")
                         }
                     }
                     
                     scm {
-                        connection.set("scm:git:git://github.com/baxsdk/sdk.git")
-                        developerConnection.set("scm:git:ssh://github.com:baxsdk/sdk.git")
-                        url.set("https://github.com/baxsdk/sdk")
+                        connection.set("scm:git:git://github.com/bax-exchange/sdk-android.git")
+                        developerConnection.set("scm:git:ssh://github.com:bax-exchange/sdk-android.git")
+                        url.set("https://github.com/bax-exchange/sdk-android")
+                    }
+                    organization {
+                        name.set("Bax Exchange")
+                        url.set("https://www.bax.mx")
                     }
                 }
             }
         }
-        
         repositories {
             maven {
-                name = "sonatype"
-                val releasesUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                val snapshotsUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsUrl else releasesUrl)
+                name = "Maven"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
                     username = sonatypeUsername
                     password = sonatypePassword
@@ -117,9 +119,20 @@ afterEvaluate {
             }
         }
     }
+}
 
-    signing {
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications["release"])
+tasks.register<Zip>("createBundle") {
+    dependsOn("publishToMavenLocal")
+    
+    from("${System.getProperty("user.home")}/.m2/repository") {
+        include("mx/bax/sdk/**")  // Adjust path based on your groupId
     }
+    
+    archiveFileName.set("sdk-bundle-${version}.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("bundle"))
+}
+
+signing {
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications)
 }
