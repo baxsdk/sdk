@@ -20,6 +20,10 @@ android {
     }
 }
 
+dependencies {
+    implementation("com.github.alxsags:BaxSDK:0.0.1")
+}
+
 publishing {
     publications {
         create<MavenPublication>("release") {
