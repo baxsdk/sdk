@@ -1,5 +1,3 @@
-val sdkTag = "0.0.1"
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -12,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 34
     }
 
     buildTypes {
@@ -32,7 +29,8 @@ android {
 }
 
 dependencies {
-    implementation("com.github.baxsdk:sdk:$sdkTag")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx.v190)
 }
 
 publishing {
@@ -41,7 +39,7 @@ publishing {
 
             groupId = "com.github.baxsdk"
             artifactId = "BaxSDK"
-            version = "$sdkTag"
+            version = "0.0.1"
 
             pom {
                 name.set("BaxSDK")
