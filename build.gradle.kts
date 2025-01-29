@@ -15,17 +15,3 @@ subprojects {
         mavenCentral()
     }
 }
-
-// Maven publishing configuration
-publishing {
-    repositories {
-        maven {
-            name = "sonatype"
-            setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("SONATYPE_USERNAME")
-                password = System.getenv("SONATYPE_PASSWORD")
-            }
-        }
-    }
-}

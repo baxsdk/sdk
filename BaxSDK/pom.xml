@@ -7,16 +7,15 @@
     <parent>
         <groupId>mx.bax.sdk</groupId>
         <artifactId>BaxSDK</artifactId>
-        <version>2025.01.28.11</version>
+        <version>1.0.3</version>
         <relativePath>../pom.xml</relativePath> 
     </parent>
 
     <artifactId>BaxSDK-core</artifactId>
-    <packaging>jar</packaging>
+    <packaging>aar</packaging>
 
     <properties>
         <android.sdk.path>${env.ANDROID_HOME}</android.sdk.path>
-        <android.version>33</android.version>
     </properties>
 
     <dependencies>
@@ -29,16 +28,38 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
+            <!-- Replace android-maven-plugin with android-library-plugin -->
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.8.2</version>
+                <configuration>
+                    <androidManifestFile>${project.basedir}/src/main/AndroidManifest.xml</androidManifestFile>
+                    <resourceDirectory>${project.basedir}/src/main/res</resourceDirectory>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+
+            <!-- Maven Assembly Plugin for creating bundle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <descriptors>
+                        <descriptor>assembly.xml</descriptor>
+                    </descriptors>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-bundle</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -73,7 +73,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "mx.bax.sdk"
                 artifactId = "BaxSDK-core"
-                version = "2025.01.29.1"
+                version = "1.0.1"
 
                 pom {
                     name.set("BaxSDK")
@@ -128,11 +128,20 @@ tasks.register<Zip>("createBundle") {
         include("mx/bax/sdk/**")  // Adjust path based on your groupId
     }
     
-    archiveFileName.set("sdk-bundle-${version}.zip")
+    archiveFileName.set("sdk-bundle-1-0-1.zip")
     destinationDirectory.set(layout.buildDirectory.dir("bundle"))
 }
 
+println("Signing Key exists: ${!signingKey.isNullOrEmpty()}")
+println("Signing Password exists: ${!signingPassword.isNullOrEmpty()}")
+
 signing {
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications)
+    if (signingKey.isNullOrEmpty() || signingPassword.isNullOrEmpty()) {
+        logger.warn("Signing credentials missing!")
+        logger.warn("SIGNING_KEY present: ${!signingKey.isNullOrEmpty()}")
+        logger.warn("SIGNING_PASSWORD present: ${!signingPassword.isNullOrEmpty()}")
+    } else {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
+    }
 }
